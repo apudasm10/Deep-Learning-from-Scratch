@@ -18,26 +18,39 @@ To use this project, follow these steps:
 
 1. **Sample Neural Network Initialization and Training:**
    ```python
-    from Layers import SoftMax, ReLU, FullyConnected
-    from Optimization import Optimizers, Loss
-    import NeuralNetwork
-    import matplotlib.pyplot as plt
-    import pandas as pd
+   from Layers import SoftMax, ReLU, FullyConnected
+   from Optimization import Optimizers, Loss
+   import NeuralNetwork
+   import matplotlib.pyplot as plt
+   import pandas as pd
 
-    net = NeuralNetwork.NeuralNetwork(Optimizers.Sgd(1e-3))
-    categories = 3
-    input_size = 100
-    net.data_layer = pd.read_csv("data.csv")
-    net.loss_layer = Loss.CrossEntropyLoss()
+   # Initialize the neural network with SGD optimizer
+   network = NeuralNetwork.NeuralNetwork(Optimizers.Sgd(learning_rate=1e-3))
 
-    fcl_1 = FullyConnected.FullyConnected(input_size, categories)
-    net.append_layer(fcl_1)
-    net.append_layer(ReLU.ReLU())
-    fcl_2 = FullyConnected.FullyConnected(categories, categories)
-    net.append_layer(fcl_2)
-    net.append_layer(SoftMax.SoftMax())
+   # Set the number of categories and input size
+   num_categories = 3
+   input_dim = 100
 
-    net.train(400)
-    plt.figure('Loss using SGD')
-    plt.plot(net.loss, '-x')
-    plt.show()
+   # Load data
+   network.data_layer = pd.read_csv("data.csv")
+
+   # Set loss function
+   network.loss_layer = Loss.CrossEntropyLoss()
+
+   # Define and add layers to the network
+   layer1 = FullyConnected.FullyConnected(input_dim, num_categories)
+   network.append_layer(layer1)
+   network.append_layer(ReLU.ReLU())
+
+   layer2 = FullyConnected.FullyConnected(num_categories, num_categories)
+   network.append_layer(layer2)
+   network.append_layer(SoftMax.SoftMax())
+
+   # Train the network
+   network.train(epochs=100)
+
+   # Plot the loss
+   plt.figure('Loss using SGD')
+   plt.plot(network.loss, '-x')
+   plt.show()
+
