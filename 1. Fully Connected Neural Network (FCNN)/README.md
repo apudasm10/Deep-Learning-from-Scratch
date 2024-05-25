@@ -11,12 +11,12 @@ The key components of this implementation includes:
 - Cross-Entropy Loss
 - Neural Network Skeleton to connect these components
 
-
 ## Usage
 
 To use this project, follow these steps:
 
 1. **Sample Neural Network Initialization and Training:**
+
    ```python
    from Layers import SoftMax, ReLU, FullyConnected
    from Optimization import Optimizers, Loss
@@ -53,4 +53,3 @@ To use this project, follow these steps:
    plt.figure('Loss using SGD')
    plt.plot(network.loss, '-x')
    plt.show()
-
