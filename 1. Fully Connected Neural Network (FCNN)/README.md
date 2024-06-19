@@ -31,8 +31,8 @@ To use this project, follow these steps:
    num_categories = 3
    input_dim = 100
 
-   # Load data
-   network.data_layer = pd.read_csv("data.csv")
+   # Load data: Initialize the data_layer to a dataloader that returns a batch of samples upon calling the next() function.
+   network.data_layer = DemoDataLoader
 
    # Set loss function
    network.loss_layer = Loss.CrossEntropyLoss()
